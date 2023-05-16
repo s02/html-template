@@ -6,7 +6,10 @@ module.exports = (env, argv) => {
   const isDevMode = argv.mode !== 'production'
 
   return {
-    entry: './src/js/app.js',
+    entry: {
+      app: './src/js/app.js',
+      inline: path.resolve(__dirname, './src/scss/app.scss')
+    },
     devServer: {
       static: {
         directory: path.join(__dirname, 'dist')
@@ -15,7 +18,7 @@ module.exports = (env, argv) => {
       port: 9000
     },
     output: {
-      filename: isDevMode ? 'main.js' : 'main.[contenthash].js',
+      filename: isDevMode ? '[name].js' : '[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
       clean: true
     },
@@ -54,12 +57,12 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        inject: 'body',
+        inject: false,
         minify: false,
-        template: './src/index.html'
+        template: './src/index.ejs'
       }),
       new MiniCssExtractPlugin({
-        filename: isDevMode ? 'main.css' : 'main.[contenthash].css'
+        filename: isDevMode ? '[name].css' : '[name].[contenthash].css'
       })
     ]
   }
