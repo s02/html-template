@@ -1,0 +1,9 @@
+<%= require('./partials/head.ejs')() %>
+<div class="page">
+    <%= require('./partials/aside.ejs')({ page: 'page 1' }) %>
+    <div class="content">
+        <%= require('./partials/header.ejs')({ page: 'page 1' }) %>
+        <h1>Content 1</h1>
+    </div>
+</div>
+<%= require('./partials/footer.ejs')() %>

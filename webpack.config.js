@@ -2,6 +2,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
+const templates = [
+    'index.ejs',
+    'page-1.ejs',
+    'page-2.ejs'
+]
+
 module.exports = (env, argv) => {
   const isDevMode = argv.mode !== 'production'
 
@@ -44,6 +50,13 @@ module.exports = (env, argv) => {
           ]
         },
         {
+          test: /\.ejs/,
+          loader: 'ejs-loader',
+          options: {
+            esModule: false
+          }
+        },
+        {
           test: /\.(jpe?g|png)/,
           loader: 'file-loader',
           options: {
@@ -53,11 +66,12 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
+    ...templates.map(tpl => new HtmlWebpackPlugin({
         inject: 'body',
         minify: false,
-        template: './src/index.html'
-      }),
+        template: `./src/${tpl}`,
+        filename: `${tpl.replace('.ejs', '.html')}`
+      })),
       new MiniCssExtractPlugin({
         filename: isDevMode ? 'main.css' : 'main.[contenthash].css'
       })

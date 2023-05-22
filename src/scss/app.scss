@@ -20,6 +20,29 @@ body {
 
 body {
   font-family: 'Roboto', sans-serif;
+  background: #F5F4F2;
+}
+
+.page {
+  width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 156px 1fr;
+  min-height: 100vh;
+}
+
+.content {
+
+}
+
+.header {
+  background-color: red;
+
+  grid-row: 1
+}
+
+.aside {
+  background-color: yellow;
 }
 
 .container {
